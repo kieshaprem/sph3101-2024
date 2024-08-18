@@ -18,11 +18,11 @@ Develop your coding skills in a real-world, collaborative environment that mirro
 
 Repository Structure
 Here's an overview of the main directories and files you will find in this repository:
-/data: Non-sensitive data files for use in exercises and projects.
-/scripts: Scripts and functions related to biostatistics analyses.
-/assignments: Coding assignments for the course.
-/resources: Additional resources, including references, guides, and helpful links.
-README.md: This file provides an overview of the repository.
+- /data: Non-sensitive data files for use in exercises and projects.
+- /scripts: Scripts and functions related to biostatistics analyses.
+- /assignments: Coding assignments for the course.
+- /resources: Additional resources, including references, guides, and helpful links.
+- README.md: This file provides an overview of the repository.
 
 **Start collaborating**
 Begin exploring the directories, running scripts, and contributing to projects!
