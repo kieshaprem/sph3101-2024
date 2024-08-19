@@ -1,6 +1,9 @@
 ############# Practical ############# 
 
 
+head(chp)
+table(chp$cvd)
+
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 
@@ -9,7 +12,7 @@
 # 1.	Populate the table 
 
 ## a) Age and CVD (Tips:  use the sd() function to calculate standard deviation, e.g., sd(chp$age[chp$cvd %in% 1]))
-
+summary(chp$age)
 mean(chp$age[chp$cvd %in% 0])
 mean(chp$age[chp$cvd %in% 1])
 sd(chp$age[chp$cvd %in% 1])
