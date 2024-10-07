@@ -14,26 +14,26 @@ hist(hh_phl$total,xlab = 'Number of people in the household other than the head'
 
 summary(hh_phl$total)
 var(hh_phl$total)
-# The mean number of people in a household is ______ (Var = ______). 
+# The mean number of people in a household is 3.68 (Var = 5.53), and there are anywhere from 0 to 16 people in the houses. 
 
 
 ############# Task 2: Relationship with other variables 
 # Explore the relationship of the number of household members with other variables (e.g., roof)
 table(hh_phl$roof)
 table(hh_phl$roof)/nrow(hh_phl)
-# ______ household roofs are made from predominantly light and salvaged material. 
+# 167 (11.1%) household roofs are made from predominantly light and salvaged material. 
 
 mean(hh_phl$total[hh_phl$roof %in% "Predominantly Strong Material"])
 var(hh_phl$total[hh_phl$roof %in% "Predominantly Strong Material"])
 mean(hh_phl$total[hh_phl$roof %in% "Predominantly Light/Salvaged Material"])
 var(hh_phl$total[hh_phl$roof %in% "Predominantly Light/Salvaged Material"])
-# The mean number of people in a house for houses with a roof made from predominantly strong material is ______ (Var = ______), 
-# whereas houses with a roof made from predominantly light/salvaged material average ______ people (Var = ______). 
+# The mean number of people in a house for houses with a roof made from predominantly strong material is 3.69 (Var=5.55), 
+# whereas houses with a roof made from predominantly light/salvaged material average 3.64 people (Var=5.41). 
 
 # Explore the relationship of the number of household members with other variables (e.g., location)
 aggregate(x = hh_phl$total, by = list(hh_phl$location),FUN = mean)
-# Households in Visayas has the largest size, on average, with a mean of ______ in the household, 
-# and the Davao Region has the smallest with a mean of ______
+# Households in Visayas has the largest size, on average, with a mean of 3.90 in the household, 
+# and the Davao Region has the smallest with a mean of 3.39.
 
 # Explore the relationship of the number of household members with other variables (e.g., age)
 # Compare mean and variance of household size within each age group
@@ -72,11 +72,6 @@ summary(m1)
 confint(m1)
 exp(confint(m1))
 
-# m0 is the null/reduced model
-m0 <- glm(total ~ 1, family = poisson, data = hh_phl)
-drop_in_dev <- anova(m0, m1, test = "Chisq")
-drop_in_dev
-
 
 
 # m2 is a second-order model
@@ -89,9 +84,10 @@ drop_in_dev <- anova(m1, m2, test = "Chisq")
 drop_in_dev
 
 
-# Add another covariate "location" to the model and test for its significance 
+m3 = glm(total ~ age + age2 + location, family = poisson, data = hh_phl)
+summary(m3)
 
-
-# m3 =
+drop_in_dev <- anova(m2, m3, test = "Chisq")
+drop_in_dev
 
 
