@@ -9,6 +9,7 @@ library(survminer)
 
 # Load the lung dataset
 lung = lung
+?lung
 head(lung)  # View first few rows of the dataset
 
 
