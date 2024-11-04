@@ -26,6 +26,11 @@ plot(malariafit, main="Kaplan-Meier Curves by Treatment",
      col=c("black", "steelblue"),conf.int=TRUE,lwd=2)
 legend("topright", legend=c("PA", "MA"), col=c("black", "steelblue"), lty=1)
 
+plot(malariafit, main="Kaplan-Meier Curves by Treatment",
+     xlab="Time (hours)", ylab="Probability of Parasitic Presence",
+     col=c("black", "steelblue"),conf.int=FALSE,lwd=2)
+legend("topright", legend=c("PA", "MA"), col=c("black", "steelblue"), lty=1)
+
 # Interpretation
 
 # Compare the time to parasitemia for both treatments.
@@ -52,7 +57,11 @@ malariafit <- survfit(Surv(malaria_trial$Time, 1 - malaria_trial$Censored) ~ mal
 plot(malariafit, col=c("black", "coral"), xlab="Time (days)", ylab="Probability of Parasitic Presence", conf.int=TRUE)
 legend("topright", legend=c("Other countries", "Cambodia"), col=c("black", "coral"), lty=1)
 
+survdiff(Surv(malaria_trial$Time, 1 - malaria_trial$Censored) ~ malaria_trial$Country)
+
 # Fit Cox model with interaction between Country and Treatment
+malariafit <- coxph(Surv(malaria_trial$Time, 1 - malaria_trial$Censored) ~ malaria_trial$Country)
+summary(malariafit)
 malariafit <- coxph(Surv(malaria_trial$Time, 1 - malaria_trial$Censored) ~ malaria_trial$Country * malaria_trial$Tx)
 summary(malariafit)
 
@@ -116,7 +125,7 @@ vivaxfit <- survfit(Surv(x$time) ~ 1)
 
 # Plot the survival curve
 plot(vivaxfit, main="Kaplan-Meier Curve for Malaria Incubation Periods", xlab="Time (days)", ylab="Survival Probability",
-     col = c(1,2),xlim=c(0,30))
+     xlim=c(0,30))
 
 
 
@@ -130,8 +139,8 @@ x$latitude[x$latitude=='2. Temperate']='temperate'
 
 vivaxfit <- survfit(Surv(x$time) ~ x$latitude)
 # Plot survival curves for different latitudes
-plot(vivaxfit, main="KM Curves by Latitude", xlab="Time (days)", ylab="Survival Probability",xlim=c(0,30),col = c(1,2))
-
+plot(vivaxfit, main="KM Curves by Latitude", xlab="Time (days)", ylab="Pr(Incubation time > t)",xlim=c(0,30),col = c(1,2,3))
+legend("topright", legend=c("Temperate", "Tropical"), col=c("black", "red"), lty=1)
 
 
 
@@ -144,6 +153,8 @@ vivaxfit <- survfit(Surv(x$time) ~ x$hemisphere)
 # Plot survival curves for different hemispheres
 plot(vivaxfit, main="KM Curves by Hemisphere", xlab="Time (days)", ylab="Survival Probability",col = c(1,2),xlim=c(0,30))
 
+plot(density(x$time[x$hemisphere %in% "oldworld"]),col=2,xlim=c(0,30))
+lines(density(x$time[x$hemisphere %in% "newworld"]),col = 1,xlim=c(0,30))
 
 # Task 2: Compare Geographic Groups
 # Step 5: Kaplan-Meier Curves with Both Latitude and Hemisphere
