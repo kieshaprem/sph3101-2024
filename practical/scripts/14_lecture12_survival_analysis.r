@@ -196,6 +196,7 @@ survdiff(Surv(x$time) ~ group)
 cox_model <- coxph(Surv(x$time) ~ factor(group))
 summary(cox_model)
 
+?intersect()
 
 
 
